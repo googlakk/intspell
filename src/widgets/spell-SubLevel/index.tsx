@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { LEVELS } from "./words";
-import SpellCard from "@pages/games/ui/card";
+import SpellCard from "@pages/games/spellingBee/ui/card";
 // Убедитесь, что импорты для изображений существуют
 import final from "/img/final.png";
 import semi from "/img/stage.png";

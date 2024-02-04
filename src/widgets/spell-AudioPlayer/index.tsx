@@ -9,26 +9,36 @@ import colorBg from "/img/bgTrainingSpelling.jpeg";
 
 interface SpellingAudioPlayerProps {
   words: string[];
+  stage: string;
+  level: string;
 }
 
-const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({ words }) => {
+const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
+  words,
+  stage,
+  level,
+}) => {
   const [rate, setRate] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [isCorrect, setIsCorrect] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [incorrectCount, setIncorrectCount] = useState(0);
+  const savedProgressString = localStorage.getItem("progress");
+  const savedProgress = savedProgressString
+    ? JSON.parse(savedProgressString)
+    : {};
+  const savedWords = savedProgress[stage]?.[level];
+  const [currentIndex, setCurrentIndex] = useState(savedWords || 0);
 
-  const randomWords = useMemo(
-    () => words.sort(() => (Math.random() > 0.5 ? 1 : -1)),
-    [words]
-  );
+  const wordsList = useMemo(() => words, [words]);
 
   useEffect(() => {
     handleSpeak();
   }, [currentIndex]);
 
-  const currentWord = randomWords[currentIndex].toLowerCase().trim();
+  const currentWord = useMemo(
+    () => wordsList[currentIndex].toLocaleLowerCase().trim(),
+    [wordsList, currentIndex]
+  );
+
   const SoundWord = new Howl({
     src: [`/sounds/${currentWord}.mp3`],
     volume: 1,
@@ -47,12 +57,18 @@ const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({ words }) => {
   const handleNextWord = () => {
     setIsCorrect(true);
     setInputValue("");
+    savedProgress[stage] = savedProgress[stage] || {};
+    savedProgress[stage][level] = currentIndex + 1;
 
-    if (currentIndex === randomWords.length - 1) {
+    localStorage.setItem("progress", JSON.stringify(savedProgress));
+
+    if (currentIndex === wordsList.length - 1) {
       alert("All words have been displayed!");
       setCurrentIndex(0);
     } else {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+      const newIndex = currentIndex + 1;
+      setCurrentIndex(newIndex);
+      localStorage.setItem("currentIndexWords", newIndex.toString());
     }
   };
 
@@ -65,13 +81,12 @@ const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({ words }) => {
   const handleCheckSpelling = () => {
     if (
       inputValue.toLowerCase().trim() ===
-      randomWords[currentIndex].toLowerCase().trim()
+      wordsList[currentIndex].toLowerCase().trim()
     ) {
       SoundRight.play();
-      setCorrectCount((count) => count + 1);
+
       handleNextWord();
     } else {
-      setIncorrectCount((count) => count + 1);
       setIsCorrect(false);
       SoundWrong.play();
     }
@@ -189,6 +204,24 @@ const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({ words }) => {
             />
           </svg>
         </label>
+        <label
+          htmlFor="wordsList"
+          className=" cursor-pointer text-primary pb-4"
+        >
+          <svg
+            className="h-8 w-8 text-primary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M9 8h10M9 12h10M9 16h10M5 8h0m0 4h0m0 4h0"
+            />
+          </svg>
+        </label>
       </div>
 
       <div className="l:flex l:justify-around l:py-5 flex justify-center mt-5">
@@ -230,10 +263,7 @@ const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({ words }) => {
       </div>
       <div className="flex justify-around">
         <div className="l:w-[200px] md:p-10 p-10 w-[300px]">
-          <PieChart
-            correctAnswers={correctCount}
-            incorrectAnswers={incorrectCount}
-          />
+          <PieChart totalWords={totalWords} shownWords={wordsShown} />
         </div>
       </div>
 
@@ -280,12 +310,34 @@ const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({ words }) => {
               <p>Total Words: {totalWords}</p>
               <p>Words Shown: {wordsShown}</p>
               <p>Words Remaining: {wordsRemaining}</p>
-              <p>Correct Answers: {correctCount}</p>
-              <p>Incorrect Answers: {incorrectCount}</p>
             </div>
           </div>
 
           <label className="modal-backdrop" htmlFor="staticsModal">
+            Close
+          </label>
+        </div>
+      </div>
+      <div>
+        <input type="checkbox" id="wordsList" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box  p-4 m-0 ">
+            <div className=" flex flex-wrap text-2xl font bold">
+              {words.map((word, idx) => (
+                <button
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`btn p-2 ${
+                    idx < currentIndex ? "bg-green-400" : " bg-slate-400"
+                  }`}
+                  key={idx}
+                >
+                  {word}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <label className="modal-backdrop" htmlFor="wordsList">
             Close
           </label>
         </div>

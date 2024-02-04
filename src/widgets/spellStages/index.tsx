@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
 import { STAGES } from "@widgets/spell-SubLevel/words";
-import SpellCard from "@pages/games/ui/card";
+import SpellCard from "@pages/games/spellingBee/ui/card";
 import junior from "/img/juniorBoy.png";
 import kids from "/img/kids.png";
 import senior from "/img/senior.png";
 
 const SpellStages = () => {
   const getInitialMode = () => {
-    const savedMode = localStorage.getItem("selectedMode");
+    const savedMode = localStorage.getItem("selectedModeEnglish");
     return savedMode || "spellingbee"; // Если в localStorage ничего нет, используем "spellingbee"
   };
 
@@ -29,16 +29,16 @@ const SpellStages = () => {
     setSelectedMode((prevMode) =>
       prevMode === "spellingbee" ? "olimpspell" : "spellingbee"
     );
-    localStorage.setItem("selectedMode", selectedMode);
+    localStorage.setItem("selectedModeEnglish", selectedMode);
   };
   useEffect(() => {
-    localStorage.setItem("selectedMode", selectedMode);
+    localStorage.setItem("selectedModeEnglish", selectedMode);
   }, [selectedMode]);
   return (
     <>
       <div className="flex items-center gap-5 text-neutral-200  justify-center text-center">
         <span className="  text-xl md:text-2xl lg:text-3xl xl:3xl font-arena tracking-widest leading-none">
-          training mode
+          olympics mode
         </span>{" "}
         <input
           type="checkbox"
@@ -47,7 +47,7 @@ const SpellStages = () => {
           checked={checkedMode(selectedMode)}
         />
         <span className=" text-xl md:text-2xl lg:text-3xl xl:3xl font-arena tracking-widest leading-none">
-          olympics mode
+          training mode
         </span>
       </div>
       <div className="container w-full mx-auto flex mt-[2%] gap-2 flex-col sm:flex-row sm:mt-[3%] flex-wrap">

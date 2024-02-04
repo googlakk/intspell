@@ -12,9 +12,19 @@ const HomePage: FC = () => {
       <h1>{}</h1>
 
       <GameCard
-        titleGame="spelling bee"
+        titleGame="for teachers"
         imgGame={spellImg}
         routes={ROUTES.SPELLINGBEE}
+      />
+      <GameCard
+        titleGame="кыргыз тил"
+        imgGame={spellImg}
+        routes={ROUTES.KYRGYZ}
+      />
+      <GameCard
+        titleGame="for students"
+        imgGame={spellImg}
+        routes={ROUTES.STUDENTS}
       />
     </div>
   );

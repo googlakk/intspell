@@ -6,17 +6,17 @@ import { Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 type PieChartProps = {
-  correctAnswers: number;
-  incorrectAnswers: number;
+  totalWords: number;
+  shownWords: number;
 };
 
-const PieChart: FC<PieChartProps> = ({ correctAnswers, incorrectAnswers }) => {
+const PieChart: FC<PieChartProps> = ({ totalWords, shownWords }) => {
   const data = {
-    labels: ["Correct answer", "InCorrect answer"],
+    labels: ["total words", "shown words"],
     datasets: [
       {
-        data: [correctAnswers, incorrectAnswers],
-        backgroundColor: ["#008170", "#FF6969"],
+        data: [totalWords, shownWords],
+        backgroundColor: ["#E6BAA3", "#008170"],
         borderWidth: 1,
       },
     ],
