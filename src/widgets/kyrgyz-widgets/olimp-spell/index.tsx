@@ -27,7 +27,7 @@ const KyrgyzOlimpSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
   }, [currentIndex]);
   const currentWord = randomWords[currentIndex].toLowerCase().trim();
   const SoundWord = new Howl({
-    src: [`/sounds/${currentWord}.mp3`],
+    src: [`/sounds/kyrgyz/${currentWord}.mp4`],
     volume: 1,
     rate: rate,
   });

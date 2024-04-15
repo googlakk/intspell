@@ -3,7 +3,6 @@ import { LEVELS } from "./words";
 import SpellCard from "@pages/games/kyrgyz/ui/card";
 // Убедитесь, что импорты для изображений существуют
 import final from "/img/final.png";
-import semi from "/img/stage.png";
 import { useParams } from "react-router-dom";
 
 const KyrgyzSpellSubLevel: FC = () => {
@@ -14,12 +13,6 @@ const KyrgyzSpellSubLevel: FC = () => {
       case "beginner":
         return [
           {
-            id: 1,
-            title: "semi final",
-            img: `${semi}`,
-            url: `${stage}/${LEVELS.semiFinal}`,
-          },
-          {
             id: 2,
             title: "final",
             img: `${final}`,
@@ -28,12 +21,6 @@ const KyrgyzSpellSubLevel: FC = () => {
         ];
       case "elementary":
         return [
-          {
-            id: 1,
-            title: "semi final",
-            img: `${semi}`,
-            url: `${stage}/${LEVELS.semiFinal}`,
-          },
           {
             id: 2,
             title: "final",
@@ -44,12 +31,6 @@ const KyrgyzSpellSubLevel: FC = () => {
       case "intermediate":
         return [
           {
-            id: 1,
-            title: "semi final",
-            img: `${semi}`,
-            url: `${stage}/${LEVELS.semiFinal}`,
-          },
-          {
             id: 2,
             title: "final",
             img: `${final}`,
@@ -58,12 +39,6 @@ const KyrgyzSpellSubLevel: FC = () => {
         ];
       case "advanced":
         return [
-          {
-            id: 1,
-            title: "semi final",
-            img: `${semi}`,
-            url: `${stage}/${LEVELS.semiFinal}`,
-          },
           {
             id: 2,
             title: "final",

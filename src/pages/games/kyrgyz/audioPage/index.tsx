@@ -9,9 +9,15 @@ const KyrgyzAudioPage: FC = () => {
   const { level } = useParams();
   const selectedStage = stage as keyof typeof words;
   const selectedLevel = level as keyof typeof stage;
-  console.log(selectedLevel);
+
   const selectedWords = words[selectedStage][selectedLevel];
 
-  return <KyrgyzSpellingAudioPlayer words={selectedWords} />;
+  return (
+    <KyrgyzSpellingAudioPlayer
+      words={selectedWords}
+      stage={`${stage}`}
+      level={`${level}`}
+    />
+  );
 };
 export default withMainLayout(KyrgyzAudioPage);

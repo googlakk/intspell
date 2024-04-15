@@ -17,7 +17,7 @@ const KyrgyzSpellStages = () => {
     { url: STAGES.beginner, title: "1-2 классы", img: `${kids}` },
     { url: STAGES.elementary, title: "3-4 классы", img: `${junior}` },
     { url: STAGES.intermediate, title: "5-6 классы", img: `${senior}` },
-    { url: STAGES.advanced, title: "6-7 классы", img: `${absolute}` },
+    { url: STAGES.advanced, title: "7-8 классы", img: `${absolute}` },
   ];
   const [selectedMode, setSelectedMode] = useState(getInitialMode);
   const checkedMode = (mode: string) => {

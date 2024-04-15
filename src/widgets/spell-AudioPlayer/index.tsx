@@ -63,12 +63,12 @@ const SpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
     localStorage.setItem("progress", JSON.stringify(savedProgress));
 
     if (currentIndex === wordsList.length - 1) {
-      alert("All words have been displayed!");
+      savedProgress[stage][level] = 0;
+      localStorage.setItem("progress", JSON.stringify(savedProgress));
       setCurrentIndex(0);
     } else {
       const newIndex = currentIndex + 1;
       setCurrentIndex(newIndex);
-      localStorage.setItem("currentIndexWords", newIndex.toString());
     }
   };
 

@@ -39,7 +39,7 @@ const SpellCard: FC<gameCardProps> = ({ url, title, img }) => {
                 className=" p-0 m-0 font-arena text-2xl text-neutral-50 tracking-wider"
                 to={`/${saveMode}/${url}`}
               >
-                Start
+                Баштоо
               </Link>
             </Button>
           </Card.Actions>
