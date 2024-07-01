@@ -43,7 +43,7 @@ const StudentsSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
   const SoundWord = useMemo(
     () =>
       new Howl({
-        src: [`/sounds/${currentWord}.mp3`],
+        src: [`/sounds/english/${currentWord}.mp3`],
         volume: 1,
         rate: rate,
       }),
@@ -53,7 +53,7 @@ const StudentsSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
   const SoundWrong = useMemo(
     () =>
       new Howl({
-        src: ["/sounds/wrongPip.mp3"],
+        src: ["/sounds/utils/wrongPip.mp3"],
         volume: 0.4,
       }),
     [currentWord]
@@ -61,7 +61,7 @@ const StudentsSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
   const SoundRight = useMemo(
     () =>
       new Howl({
-        src: ["/sounds/winPip.mp3"],
+        src: ["/sounds/utils/winPip.mp3"],
         volume: 0.3,
         rate: 1.5,
       }),

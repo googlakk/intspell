@@ -92,18 +92,24 @@ const StudentsSpellSubLevel: FC = () => {
           },
           {
             id: 3,
+            title: "Round 2",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.Round2}`,
+          },
+          {
+            id: 4,
             title: "Semi final",
             img: `${final}`,
             url: `${stage}/${LEVELS.SemiFinal}`,
           },
           {
-            id: 4,
+            id: 5,
             title: "Final",
             img: `${final}`,
             url: `${stage}/${LEVELS.Final}`,
           },
           {
-            id: 5,
+            id: 6,
             title: "Additional Words",
             img: `${final}`,
             url: `${stage}/${LEVELS.AdditionalWords}`,
