@@ -10,60 +10,106 @@ const StudentsSpellSubLevel: FC = () => {
 
   const getSubLevels = (mode: any) => {
     switch (mode) {
-      case "year1":
+      case "kids":
         return [
           {
             id: 1,
-            title: "final",
+            title: "Trial round",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.TrialRound}`,
+          },
+          {
+            id: 2,
+            title: "Round 1",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.Round1}`,
+          },
+          {
+            id: 3,
+            title: "Semi final",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.SemiFinal}`,
+          },
+          {
+            id: 4,
+            title: "Final",
             img: `${final}`,
             url: `${stage}/${LEVELS.Final}`,
           },
+          {
+            id: 5,
+            title: "Additional Words",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.AdditionalWords}`,
+          },
         ];
-      case "year2":
+      case "junior":
         return [
           {
             id: 1,
-            title: "final",
+            title: "Trial round",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.TrialRound}`,
+          },
+          {
+            id: 2,
+            title: "Round 1",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.Round1}`,
+          },
+          {
+            id: 3,
+            title: "Semi final",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.SemiFinal}`,
+          },
+          {
+            id: 4,
+            title: "Final",
             img: `${final}`,
             url: `${stage}/${LEVELS.Final}`,
           },
+          {
+            id: 5,
+            title: "Additional Words",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.AdditionalWords}`,
+          },
         ];
-      case "year3":
+      case "senior":
         return [
           {
             id: 1,
-            title: "final",
+            title: "Trial round",
             img: `${final}`,
-            url: `${stage}/${LEVELS.Final}`,
+            url: `${stage}/${LEVELS.TrialRound}`,
           },
-        ];
-      case "year4":
-        return [
           {
-            id: 1,
-            title: "final",
+            id: 2,
+            title: "Round 1",
             img: `${final}`,
-            url: `${stage}/${LEVELS.Final}`,
+            url: `${stage}/${LEVELS.Round1}`,
           },
-        ];
-      case "year5":
-        return [
           {
-            id: 1,
-            title: "final",
+            id: 3,
+            title: "Semi final",
             img: `${final}`,
-            url: `${stage}/${LEVELS.Final}`,
+            url: `${stage}/${LEVELS.SemiFinal}`,
           },
-        ];
-      case "year6":
-        return [
           {
-            id: 1,
-            title: "final",
+            id: 4,
+            title: "Final",
             img: `${final}`,
             url: `${stage}/${LEVELS.Final}`,
           },
+          {
+            id: 5,
+            title: "Additional Words",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.AdditionalWords}`,
+          },
         ];
+
       default:
         return [];
     }
@@ -72,7 +118,7 @@ const StudentsSpellSubLevel: FC = () => {
   const subLevels = getSubLevels(stage);
 
   return (
-    <div className="container mx-auto flex mt-[2%] flex-col sm:flex-row sm:mt-[10%] md:flex-wrap">
+    <div className="container mx-auto flex mt-[2%] flex-col sm:flex-row gap-2 sm:mt-[10%] md:flex-wrap">
       {subLevels.map((obj) => (
         <SpellCard key={obj.id} title={obj.title} url={obj.url} img={obj.img} />
       ))}

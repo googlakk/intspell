@@ -13,12 +13,9 @@ const StudentsSpellStages = () => {
   };
 
   const stages = [
-    { url: STAGES.year1, title: "1", img: `${kids}` },
-    { url: STAGES.year2, title: "2", img: `${junior}` },
-    { url: STAGES.year3, title: "3", img: `${senior}` },
-    { url: STAGES.year4, title: "4", img: `${kids}` },
-    { url: STAGES.year5, title: "5-6", img: `${junior}` },
-    { url: STAGES.year6, title: "7-8", img: `${senior}` },
+    { url: STAGES.kids, title: "kids", img: `${kids}` },
+    { url: STAGES.junior, title: "junior", img: `${junior}` },
+    { url: STAGES.senior, title: "senior", img: `${senior}` },
   ];
   const [selectedMode, setSelectedMode] = useState(getInitialMode);
   const checkedMode = (mode: string) => {
@@ -58,7 +55,6 @@ const StudentsSpellStages = () => {
           <SpellCard key={index} url={url} title={title} img={img} />
         ))}
       </div>
-      ч
     </>
   );
 };
