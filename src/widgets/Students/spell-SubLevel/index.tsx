@@ -13,12 +13,6 @@ const StudentsSpellSubLevel: FC = () => {
       case "kids":
         return [
           {
-            id: 1,
-            title: "Trial round",
-            img: `${final}`,
-            url: `${stage}/${LEVELS.TrialRound}`,
-          },
-          {
             id: 2,
             title: "Round 1",
             img: `${final}`,
@@ -115,7 +109,24 @@ const StudentsSpellSubLevel: FC = () => {
             url: `${stage}/${LEVELS.AdditionalWords}`,
           },
         ];
-
+      case "absolute":
+        return [
+          {
+            id: 1,
+            title: "Final",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.Final}`,
+          },
+        ];
+      case "super":
+        return [
+          {
+            id: 1,
+            title: "Final",
+            img: `${final}`,
+            url: `${stage}/${LEVELS.Final}`,
+          },
+        ];
       default:
         return [];
     }

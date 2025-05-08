@@ -1,30 +1,26 @@
-export enum LEVELS {
-  TrialRound = "TrialRound",
-  Round1 = "round1",
-  Round2 = "round2",
-  SemiFinal = "semiFinal",
-  Final = "final",
-  AdditionalWords = "Additional Words",
-}
-export enum STAGES {
-  kids = "kids",
-  junior = "junior",
-  senior = "senior",
-  absolute = "absolute",
-  super = "super",
-}
-interface WordData {
-  [LEVELS.TrialRound]?: string[];
-  [LEVELS.Round1]?: string[];
-  [LEVELS.Round2]?: string[];
-  [LEVELS.SemiFinal]?: string[];
-  [LEVELS.Final]?: string[];
-  [LEVELS.AdditionalWords]?: string[];
-}
+import { fileURLToPath } from "url";
+import fs from "fs";
+import path from "path";
 
-type Words = Record<string, WordData>;
+// Получаем __dirname в ES-модуле
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-export const words: Words = {
+// Путь к папке с аудиофайлами
+const audioDir = path.join(__dirname, "../../public/sounds/eng/newSounds");
+
+// Пример данных
+const LEVELS = {
+  TrialRound: "TrialRound",
+  Round1: "round1",
+  Round2: "round2",
+  SemiFinal: "semiFinal",
+  Final: "final",
+  AdditionalWords: "Additional Words",
+};
+
+
+const wordsByStage = {
   kids: {
     [LEVELS.Round1]: [
       "let",
@@ -359,6 +355,7 @@ export const words: Words = {
       "mushroom",
       "sausages",
       "ketchup",
+      "yoghurt",
       "watermelon",
       "apricot",
       "marmalade",
@@ -427,7 +424,7 @@ export const words: Words = {
       "balance",
       "leopard",
       "dancer ",
-
+      "yogurt",
       "uniform",
       "sunrise",
       "palace",
@@ -927,7 +924,7 @@ export const words: Words = {
       "promise",
       "sausages",
       "ketchup",
-
+      "yoghurt",
       "porridge",
       "biscuits",
       "watermelon",
@@ -1575,7 +1572,7 @@ export const words: Words = {
       "pillowcase",
       "radiator",
       "shampoo",
-
+      "yoghurt",
       "toothbrush",
       "toothpaste",
       "ashtray",
@@ -1769,7 +1766,7 @@ export const words: Words = {
       "sponger",
       "teetotaller",
       "castaway",
-
+      "imposte",
       "agnostic",
       "expatriate",
       "emotional",
@@ -1777,7 +1774,7 @@ export const words: Words = {
       "hospitable",
       "considerate",
       "disappointed",
-      "embarrassed",
+      "embarassed",
       "cheerful",
       "excellent",
       "geography",
@@ -2581,74 +2578,49 @@ export const words: Words = {
       "Palatable ",
     ],
   },
-  super: {
-    [LEVELS.Final]: [
-      "incomprehensibilities",
-      "uncopyrightable",
-      "counterdemonstrations",
-      "uncharacteristically",
-      "institutionalisation",
-      "microseismograph",
-      "nonrepresentationalism",
-      "overinterpretations",
-      "counterrevolutionaries",
-      "unenthusiastically",
-      "overintellectualised",
-      "hyperresponsibility",
-      "phenomenologically",
-      "disproportionately",
-      "electromagnetically",
-      "Incomprehensibilities ",
-"uncopyrightable ",
-"Counterdemonstration ",
-"Uncharacteristically ",
-"Institutionalisation ",
-"Microseismograph ",
-"Nonrepresentationalism ",
-"Overinterpretations ",
-"Counterrevolutionaries ",
-"Unenthusiastically ",
-"Overintellectualised ",
-"Hyperresponsibility ",
-"Phenomenologically ",
-"Disproportionately ",
-"Electromagnetically ",
-"Resourcefulness ",
-"Disequilibrium",
-"unpronounceable ",
-"Semimanufactures",
-"Subterranean",
-"Tintinnabulation",
-"Pharmaceutical ",
-"Hyperpyrexia",
-"Transubstantiation",
-"Chrysanthemum",
-"Imprescriptible",
-"Staphylococcus",
-"Inconsequential",
-"Triskaidekaphobia ",
-"humanitarianism ",
-"crystallomancy",
-"applicableness",
-"autocurriculum",
-"experimentation",
-"logarithmically",
-"distinguishable",
-"mechanochemical",
-"methamphetamine",
-"monopathophobia",
-"purposelessness",
-"quadruplication",
-"quarrelsomeness",
-"transmissometer",
-"trustworthiness",
-"synergistically",
-"photodetachment",
-"redetermination",
-"reprecipitation",
-"multiculturalism",
-"quarkochemistry"
-    ],
-  },
+};
+// Функция для рекурсивного обхода структуры данных и сбора уникальных слов
+const collectUniqueWords = (obj) => {
+  const uniqueWordsSet = new Set();
+
+  const traverse = (currentObj) => {
+    for (const key in currentObj) {
+      const value = currentObj[key];
+      if (Array.isArray(value)) {
+        value.forEach((word) => uniqueWordsSet.add(word.toLowerCase().trim()));
+      } else if (typeof value === "object" && value !== null) {
+        traverse(value);
+      }
+    }
+  };
+
+  traverse(obj);
+  return Array.from(uniqueWordsSet);
 };
 
+// Функция для проверки наличия файлов
+const checkAudioFiles = (words, dir) => {
+  const missingFiles = [];
+
+  words.forEach((word) => {
+    const filePath = path.join(dir, `${word}.mp3`);
+    if (!fs.existsSync(filePath)) {
+      missingFiles.push(word);
+    }
+  });
+
+  return missingFiles;
+};
+
+// Сбор уникальных слов
+const uniqueWords = collectUniqueWords(wordsByStage);
+
+// Проверка наличия файлов
+const missingFiles = checkAudioFiles(uniqueWords, audioDir);
+
+if (missingFiles.length > 0) {
+  console.log("Missing audio files for the following words:");
+  console.log(missingFiles);
+} else {
+  console.log("All audio files are present.");
+}

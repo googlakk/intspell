@@ -43,7 +43,7 @@ const StudentsSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
   const SoundWord = useMemo(
     () =>
       new Howl({
-        src: [`/sounds/english/${currentWord}.mp3`],
+        src: [`/sounds/eng/${currentWord}.mp3`],
         volume: 1,
         rate: rate,
       }),

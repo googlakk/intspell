@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { STAGES } from "@widgets/Students/spell-SubLevel/words";
 import SpellCard from "@pages/games/students/ui/card";
+import absolute from "/img/absolute.png";
 import junior from "/img/juniorBoy.png";
 import kids from "/img/kids.png";
 import senior from "/img/senior.png";
@@ -16,6 +17,8 @@ const StudentsSpellStages = () => {
     { url: STAGES.kids, title: "kids", img: `${kids}` },
     { url: STAGES.junior, title: "junior", img: `${junior}` },
     { url: STAGES.senior, title: "senior", img: `${senior}` },
+    { url: STAGES.absolute, title: "absolute", img: `${absolute}` },
+    { url: STAGES.super, title: "super", img: `${absolute}` },
   ];
   const [selectedMode, setSelectedMode] = useState(getInitialMode);
   const checkedMode = (mode: string) => {

@@ -3,7 +3,6 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { Button } from "react-daisyui";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@pages/routes";
-import VoiceInput from "@widgets/spell-VoiceInput";
 import colorBg from "/img/colorGradientBg.jpeg";
 
 interface SpellingAudioPlayerProps {
@@ -28,13 +27,13 @@ const StudentsOlimpSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
   }, [currentIndex]);
   const currentWord = randomWords[currentIndex].toLowerCase().trim();
   const SoundWord = new Howl({
-    src: [`/sounds/${currentWord}.mp3`],
+    src: [`/sounds/eng/${currentWord}.mp3`],
     volume: 1,
     rate: rate,
   });
 
   const SoundRight = new Howl({
-    src: ["/sounds/winPip.mp3"],
+    src: ["/sounds/utils/winPip.mp3"],
     volume: 0.3,
     rate: 1.5,
   });
@@ -165,6 +164,27 @@ const StudentsOlimpSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
             />
           </svg>
         </label>
+        <label
+          htmlFor="wordsList"
+          className=" cursor-pointer text-primary pb-4"
+        >
+          <svg
+            className="h-8 w-8 text-primary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+            <circle cx="2" cy="6" r="1" fill="currentColor" />
+            <circle cx="2" cy="12" r="1" fill="currentColor" />
+            <circle cx="2" cy="18" r="1" fill="currentColor" />
+          </svg>
+        </label>
       </div>
 
       <div className="l:flex l:justify-around l:py-5 flex justify-center mt-5">
@@ -183,21 +203,25 @@ const StudentsOlimpSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
         </Button>
       </div>
 
-      <div className=" flex justify-center items-center h-[40vh]">
-        <div className=" text-center ">
+      <div className="flex justify-center items-center h-[40vh] px-4">
+        <div className="text-center w-full max-w-full">
           {!loading && (
-            <div className="text-[5rem] sm:text-[10rem] md:text-[10rem] xl:text-[10rem] font-bold text-primary">
+            <div
+              className="font-bold text-primary break-words"
+              style={{
+                fontSize: "clamp(2rem, 10vw, 10rem)", // динамический размер
+                wordBreak: "break-word", // перенос длинных слов
+                overflowWrap: "break-word",
+              }}
+            >
               {words[currentIndex]}
             </div>
           )}
           {loading && (
-            <>
-              <div className="flex gap-x-2">
-                <span className="loading loading-infinity w-40 text-primary"></span>
-              </div>
-            </>
+            <div className="flex gap-x-2 justify-center">
+              <span className="loading loading-infinity w-40 text-primary"></span>
+            </div>
           )}
-          <VoiceInput words={words} currentIndex={currentIndex} />
         </div>
       </div>
 
@@ -250,6 +274,30 @@ const StudentsOlimpSpellingAudioPlayer: FC<SpellingAudioPlayerProps> = ({
           </div>
 
           <label className="modal-backdrop" htmlFor="staticsModal">
+            Close
+          </label>
+        </div>
+      </div>
+      <div>
+        <input type="checkbox" id="wordsList" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box p-4 m-0">
+            <div className="grid grid-cols-2 gap-2 text-2xl font-bold">
+              {words.map((word, idx) => (
+                <button
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`btn break-words text-left w-full p-2 ${
+                    idx < currentIndex ? "bg-green-400" : "bg-slate-400"
+                  }`}
+                  key={idx}
+                >
+                  {word}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <label className="modal-backdrop" htmlFor="wordsList">
             Close
           </label>
         </div>
